@@ -255,10 +255,32 @@ public class TCPServerTest {
         packet.setRequestType(RequestType.GET_ALL);
         packet.setToken(token);
         packet.setHomeName("TestHome");
+        packet.setDeviceType(DeviceType.HOME);
         out.println(objectMapper.writeValueAsString(packet));
 
         String response = in.readLine();
         ResponsePacket responsePacket = objectMapper.readValue(response, ResponsePacket.class);
+        assertNotNull(responsePacket);
+        assertNotNull(responsePacket.getMessage());
+        System.out.println(responsePacket.getMessage());
+
+        // Test getting all rooms
+        packet.setDeviceType(DeviceType.ROOM);
+        packet.setRoomName("TestRoom2");
+        out.println(objectMapper.writeValueAsString(packet));
+
+        response = in.readLine();
+        responsePacket = objectMapper.readValue(response, ResponsePacket.class);
+        assertNotNull(responsePacket);
+        assertNotNull(responsePacket.getMessage());
+        System.out.println(responsePacket.getMessage());
+
+        // Test getting all blinds
+        packet.setDeviceType(DeviceType.BLIND);
+        out.println(objectMapper.writeValueAsString(packet));
+
+        response = in.readLine();
+        responsePacket = objectMapper.readValue(response, ResponsePacket.class);
         assertNotNull(responsePacket);
         assertNotNull(responsePacket.getMessage());
         System.out.println(responsePacket.getMessage());

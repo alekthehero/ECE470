@@ -54,7 +54,7 @@ public class PacketController {
 
         // General Actions
         switch (packet.getRequestType()) {
-            case GET_ALL -> { return Homes.GetAllHomes(packet); }
+            case GET_ALL -> { return Homes.GetDetails(packet); }
         }
 
         // Process Device Actions
