@@ -1,7 +1,10 @@
 package com.alekthehero.ece470.project1.datamodel;
 
 import com.alekthehero.ece470.project1.data.Homes;
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,12 +23,15 @@ public class RequestPacket {
     private DeviceType deviceType;
     private short code;
 
+    @JsonIgnore
     public Home getHome() {
         return Homes.getHome(homeName);
     }
+    @JsonIgnore
     public Room getRoom() {
         return Homes.getHome(homeName).getRoom(roomName);
     }
+    @JsonIgnore
     public Device getDevice() {
         List<Device> devices = Homes.getHome(homeName).getRoom(roomName).getDevices();
         for (Device device : devices) {

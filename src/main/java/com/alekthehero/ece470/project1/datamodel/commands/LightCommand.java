@@ -1,6 +1,8 @@
 package com.alekthehero.ece470.project1.datamodel.commands;
 
 import com.alekthehero.ece470.project1.datamodel.RequestPacket;
+import com.alekthehero.ece470.project1.datamodel.ResponsePacket;
+import com.alekthehero.ece470.project1.datamodel.ResponseType;
 import com.alekthehero.ece470.project1.datamodel.devices.Light;
 import org.slf4j.Logger;
 
@@ -8,7 +10,9 @@ public class LightCommand extends Command {
 
     Logger logger = org.slf4j.LoggerFactory.getLogger(LightCommand.class);
 
-    public static void ProcessCommand(RequestPacket packet) {
+    private ResponsePacket response = new ResponsePacket(ResponseType.FAILURE, "Invalid request");
+
+    public static ResponsePacket ProcessCommand(RequestPacket packet) {
         LightCommand lightCommand = new LightCommand();
         switch (packet.getRequestType()) {
             case CREATE -> { lightCommand.create(packet); }
@@ -16,26 +20,28 @@ public class LightCommand extends Command {
             case TOGGLE -> { lightCommand.toggle(packet); }
             case CHANGE -> { lightCommand.change(packet); }
         }
-
+        return lightCommand.response;
     }
 
     @Override
     public void toggle(RequestPacket packet) {
         logger.info("Toggling light");
         packet.getDevice().setOn(!packet.getDevice().isOn());
-
+        response = new ResponsePacket(ResponseType.SUCCESS, "Light toggled");
     }
 
     @Override
     public void create(RequestPacket packet) {
         logger.info("Creating light");
         packet.getRoom().addDevice(new Light(packet.getName()));
+        response = new ResponsePacket(ResponseType.SUCCESS, "Light created");
     }
 
     @Override
     public void delete(RequestPacket packet) {
         logger.info("Deleting light");
         packet.getRoom().removeDevice(packet.getDevice());
+        response = new ResponsePacket(ResponseType.SUCCESS, "Light deleted");
     }
 
     public void change(RequestPacket packet) {

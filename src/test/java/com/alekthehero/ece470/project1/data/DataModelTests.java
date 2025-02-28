@@ -1,15 +1,16 @@
-package com.alekthehero.ece470.project1;
+package com.alekthehero.ece470.project1.data;
 
-import com.alekthehero.ece470.project1.data.Homes;
 import com.alekthehero.ece470.project1.datamodel.*;
 import com.alekthehero.ece470.project1.services.PacketController;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+@SpringBootTest()
+@Tag("DataModel")
 public class DataModelTests {
     private final Logger logger = org.slf4j.LoggerFactory.getLogger(DataModelTests.class);
     private static final String TOKEN = "UserPassword";
@@ -88,6 +89,5 @@ public class DataModelTests {
         requestPacket.setToken(TOKEN);
         requestPacket.setHomeName("Home");
         PacketController.processPacket(requestPacket);
-        // Check for network response, for now check console.
     }
 }

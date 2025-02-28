@@ -1,12 +1,14 @@
-package com.alekthehero.ece470.project1;
+package com.alekthehero.ece470.project1.data;
 
 import com.alekthehero.ece470.project1.datamodel.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
+@Tag("DataModel")
 class PacketSerializationTests {
 
     private final Logger logger = org.slf4j.LoggerFactory.getLogger(PacketSerializationTests.class);
@@ -28,15 +30,24 @@ class PacketSerializationTests {
     @Test
     void testSerialization() throws Exception {
         //Given a packet that the server would send to the client
-        ResponsePacket packet = new ResponsePacket();
-        packet.setResponseType(ResponseType.SUCCESS);
-        packet.setMessage("Device Turned On Successfully");
+        ResponsePacket packet = new ResponsePacket(ResponseType.SUCCESS, "Device Turned On Successfully");
 
         String json = objectMapper.writeValueAsString(packet);
 
         assert json.contains("SUCCESS");
         assert json.contains("Device Turned On Successfully");
         logger.info("Packet Serialized Successfully");
+
+        RequestPacket reqPacket = new RequestPacket();
+        reqPacket.setHomeName("TestHome");
+        reqPacket.setName("TestUser");
+        reqPacket.setPassword("TestPass");
+        reqPacket.setRequestType(RequestType.CREATE_ACCOUNT);
+
+        String json2 = objectMapper.writeValueAsString(reqPacket);
+        assert json2.contains("CREATE_ACCOUNT");
+        assert json2.contains("TestHome");
+        assert json2.contains("TestUser");
     }
 
 }

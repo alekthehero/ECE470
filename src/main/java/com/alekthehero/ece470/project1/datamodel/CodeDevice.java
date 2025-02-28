@@ -1,9 +1,10 @@
 package com.alekthehero.ece470.project1.datamodel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class CodeDevice extends Device {
-    protected List<Short> codes;
+    protected List<Short> codes = new ArrayList<>();
 
     public CodeDevice(String name, short initCode) {
         super(name);
@@ -26,6 +27,6 @@ public abstract class CodeDevice extends Device {
         setOn(false);
     }
 
-    public abstract void codeTurnOn(short code);
-    public abstract void codeTurnOff(short code);
+    public abstract boolean codeTurnOn(short code);
+    public abstract boolean codeTurnOff(short code);
 }
