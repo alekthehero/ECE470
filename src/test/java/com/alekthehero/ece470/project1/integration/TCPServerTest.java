@@ -158,6 +158,15 @@ public class TCPServerTest {
         assertNotNull(responsePacket);
         assert responsePacket.getMessage().equals("Lock toggled");
 
+        // fail to toggle lock
+        packet.setCode((short)6666);
+        out.println(objectMapper.writeValueAsString(packet));
+
+        response = in.readLine();
+        responsePacket = objectMapper.readValue(response, ResponsePacket.class);
+        assertNotNull(responsePacket);
+        assert responsePacket.getMessage().equals("Invalid code");
+
         // Success to Delete the lock
         packet.setRequestType(RequestType.DELETE);
         out.println(objectMapper.writeValueAsString(packet));

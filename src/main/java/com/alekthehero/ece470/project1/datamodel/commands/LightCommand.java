@@ -6,6 +6,8 @@ import com.alekthehero.ece470.project1.datamodel.ResponseType;
 import com.alekthehero.ece470.project1.datamodel.devices.Light;
 import org.slf4j.Logger;
 
+import java.awt.*;
+
 public class LightCommand extends Command {
 
     Logger logger = org.slf4j.LoggerFactory.getLogger(LightCommand.class);
@@ -45,6 +47,17 @@ public class LightCommand extends Command {
     }
 
     public void change(RequestPacket packet) {
-        System.out.println("Changing light");
+        switch (packet.getChangeType()) {
+            case BRIGHTNESS -> {
+                logger.info("Changing brightness");
+                ((Light) packet.getDevice()).setBrightness(packet.getBrightness());
+                response = new ResponsePacket(ResponseType.SUCCESS, "Brightness changed");
+            }
+            case COLOR -> {
+                logger.info("Changing color");
+                ((Light) packet.getDevice()).setColor(new Color(packet.getColor()));
+                response = new ResponsePacket(ResponseType.SUCCESS, "Color changed");
+            }
+        }
     }
 }

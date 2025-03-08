@@ -2,9 +2,8 @@ package com.alekthehero.ece470.project1.datamodel.devices;
 
 import com.alekthehero.ece470.project1.datamodel.CodeDevice;
 import com.alekthehero.ece470.project1.datamodel.DeviceType;
-import lombok.ToString;
 
-@ToString
+
 public class Lock extends CodeDevice {
     public Lock(String name, short initCode) {
         super(name, initCode);

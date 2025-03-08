@@ -21,6 +21,9 @@ public class RequestPacket {
     private String homeName;
     private String roomName;
     private DeviceType deviceType;
+    private ChangeType changeType;
+    private int brightness;
+    private int color;
     private short code;
 
     @JsonIgnore

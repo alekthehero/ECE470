@@ -4,11 +4,10 @@ import com.alekthehero.ece470.project1.datamodel.devices.Alarm;
 import com.alekthehero.ece470.project1.datamodel.devices.Lock;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.util.*;
 
-@Getter @Setter @ToString
+@Getter @Setter
 public class Home {
     private String name;
     private Alarm alarm;
@@ -88,4 +87,10 @@ public class Home {
         rooms.remove(room);
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Home: ").append(name).append("  |  Rooms: ").append(rooms.size());
+        return builder.toString();
+    }
 }

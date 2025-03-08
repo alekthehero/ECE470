@@ -20,4 +20,13 @@ public abstract class Device {
 
     public abstract void turnOn();
     public abstract void turnOff();
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Device: ").append(name).append("\n");
+        builder.append("     \\ Type: ").append(type).append("\n");
+        builder.append("     \\ State: ").append(isOn ? "On" : "Off").append("\n");
+        return builder.toString();
+    }
 }

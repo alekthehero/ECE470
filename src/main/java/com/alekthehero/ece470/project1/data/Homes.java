@@ -29,8 +29,6 @@ public class Homes {
     }
 
     public static ResponsePacket GetDetails(RequestPacket packet) {
-        logger.info("Getting all data for all homes");
-
         switch (packet.getDeviceType()) {
             case HOME -> {
                 return GetAllHomes(packet);
@@ -55,7 +53,8 @@ public class Homes {
             try {
                 for (Device device : room.getDevices()) {
                     if (device.getType() == packet.getDeviceType()) {
-                        deviceData.append(" - ").append(device.toString()).append("\n");
+                        deviceData.append(" - ").append(device).append("\n");
+                        deviceData.append(" - ").append(room).append("\n");
                     }
                 }
             } catch (Exception e) {
@@ -95,12 +94,12 @@ public class Homes {
                 homeData.append("Home: ").append(home.toString()).append("\n");
 
                 // Add rooms data
-                homeData.append(" Rooms:\n");
+                homeData.append("   Rooms:\n");
                 for (Room room : home.getRooms()) {
                     homeData.append("- ").append(room.toString()).append("\n");
 
                     // Add devices in room
-                    homeData.append("  Devices:\n");
+                    homeData.append("   Devices:\n");
                     for (Device device : room.getDevices()) {
                         homeData.append("  - ").append(device.toString()).append("\n");
                     }

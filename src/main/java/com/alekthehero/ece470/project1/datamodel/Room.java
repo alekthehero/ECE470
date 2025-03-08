@@ -2,13 +2,12 @@ package com.alekthehero.ece470.project1.datamodel;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
-@Getter @Setter @ToString
+@Getter @Setter
 public class Room {
     private String name;
     private List<Device> devices = new LinkedList<>();
@@ -32,5 +31,12 @@ public class Room {
             }
         }
         return null;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(" Room: ").append(name).append("  |  Devices: ").append(devices.size()).append("\n");
+        return builder.toString();
     }
 }

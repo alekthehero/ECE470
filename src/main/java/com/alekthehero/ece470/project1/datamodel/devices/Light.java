@@ -4,13 +4,12 @@ import com.alekthehero.ece470.project1.datamodel.Device;
 import com.alekthehero.ece470.project1.datamodel.DeviceType;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import org.slf4j.Logger;
 import java.awt.*;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-@ToString
+
 public class Light extends Device {
     Logger logger = getLogger(Light.class);
 

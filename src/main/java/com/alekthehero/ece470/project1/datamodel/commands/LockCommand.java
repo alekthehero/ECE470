@@ -40,6 +40,7 @@ public class LockCommand extends Command {
             success = lock.codeTurnOn(packet.getCode());
         }
         if (!success) {
+            logger.info("Invalid Code");
             response = new ResponsePacket(ResponseType.FAILURE, "Invalid code");
             return;
         }
